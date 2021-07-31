@@ -1,0 +1,21 @@
+{
+    "name": "fusio/worker",
+    "description": "Fusio worker",
+    "homepage": "https://www.fusio-project.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christoph Kappestein",
+            "email": "christoph.kappestein@gmail.com",
+            "homepage": "https://chrisk.app"
+        }
+    ],
+    "require": {
+        "packaged/thrift": "^0.13.01"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fusio\\Worker\\": "src/"
+        }
+    }
+}
