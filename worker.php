@@ -9,7 +9,7 @@ $port = 9092;
 $handler = new \Fusio\Worker\WorkerHandler();
 $processor = new \Fusio\Worker\Generated\WorkerProcessor($handler);
 
-$socket = new \Thrift\Server\TServerSocket('127.0.0.1', $port);
+$socket = new \Thrift\Server\TServerSocket('localhost', $port);
 $transportFactory = new \Thrift\Factory\TTransportFactory();
 $protocolFactory = new \Thrift\Factory\TBinaryProtocolFactory();
 

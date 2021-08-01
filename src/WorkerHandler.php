@@ -9,7 +9,7 @@ use Fusio\Worker\Generated\WorkerIf;
 
 class WorkerHandler implements WorkerIf
 {
-    private array $connections = [];
+    private ?\stdClass $connections = null;
 
     /**
      * @inheritDoc
@@ -23,7 +23,7 @@ class WorkerHandler implements WorkerIf
             return new Message(['success' => false, 'message' => 'Provided no connection name']);
         }
 
-        $data[$connection->name] = [
+        $data->{$connection->name} = [
             'type' => $connection->type,
             'config' => $connection->config,
         ];
@@ -50,8 +50,10 @@ class WorkerHandler implements WorkerIf
             return new Message(['success' => false, 'message' => 'Provided no action name']);
         }
 
-        $file = $dir . '/' . $action->name . '.js';
+        $file = $dir . '/' . $action->name . '.php';
         file_put_contents($file, $action->code);
+
+        clearstatcache();
 
         return new Message(['success' => true, 'message' => 'Action successful updated']);
     }
@@ -66,12 +68,16 @@ class WorkerHandler implements WorkerIf
         $logger = new Logger();
         $response = new ResponseBuilder();
 
-        if (empty($execute->action)) {
-            return;
-        }
-
         try {
-            $handler = require __DIR__ . '/actions/' . $execute->action . '.php';
+            $file = __DIR__ . '/../actions/' . $execute->action . '.php';
+            if (!is_file($file)) {
+                throw new \RuntimeException('Provided action does not exist');
+            }
+
+            $handler = require $file;
+            if (!$handler instanceof \Closure) {
+                throw new \RuntimeException('Provided action does not return a closure');
+            }
 
             $response = $handler($execute->request, $execute->context, $connector, $response, $dispatcher, $logger);
 
@@ -80,17 +86,17 @@ class WorkerHandler implements WorkerIf
             $response = new Response([
                 'statusCode' => 500,
                 'headers' => [],
-                'body' => [
+                'body' => json_encode([
                     'success' => false,
                     'message' => 'An error occurred at the worker: ' . $e->getMessage(),
-                ],
+                ]),
             ]);
 
             return new Result(['response' => $response]);
         }
     }
 
-    private function readConnections(): array
+    private function readConnections(): ?\stdClass
     {
         if (!empty($this->connections)) {
             return $this->connections;
@@ -98,9 +104,13 @@ class WorkerHandler implements WorkerIf
 
         $file = './connections.json';
         if (is_file($file)) {
-            $this->connections = json_decode(file_get_contents($file), true);
+            $this->connections = json_decode(file_get_contents($file));
         }
 
-        return $this->connections !== null ? $this->connections : [];
+        if (!$this->connections instanceof \stdClass) {
+            return null;
+        }
+
+        return $this->connections;
     }
 }
