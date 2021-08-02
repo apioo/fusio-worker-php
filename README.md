@@ -25,3 +25,17 @@ return function($request, $context, $connector, $response, $dispatcher, $logger)
 };
 
 ```
+
+## Types
+
+This table contains an overview which connection types are implemented
+and which implementation is used:
+
+| Type | Implementation |
+| ---- | -------------- |
+| `Fusio.Adapter.Sql.Connection.Sql` | `doctrine/dbal`
+| `Fusio.Adapter.Sql.Connection.SqlAdvanced` | `doctrine/dbal`
+| `Fusio.Adapter.Http.Connection.Http` | `guzzlehttp/guzzle`
+| `Fusio.Adapter.Mongodb.Connection.MongoDB` | `-`
+| `Fusio.Adapter.Elasticsearch.Connection.Elasticsearch` | `-`
+
