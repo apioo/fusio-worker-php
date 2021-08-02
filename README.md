@@ -13,7 +13,14 @@ from a database and returns a response
 ```php
 <?php
 
-return function($request, $context, $connector, $response, $dispatcher, $logger) {
+use Fusio\Worker\Connector;
+use Fusio\Worker\Dispatcher;
+use Fusio\Worker\Generated\Context;
+use Fusio\Worker\Generated\Request;
+use Fusio\Worker\Logger;
+use Fusio\Worker\ResponseBuilder;
+
+return function(Request $request, Context $context, Connector $connector, ResponseBuilder $response, Dispatcher $dispatcher, Logger $logger) {
     $connection = $connector->getConnection('my_db');
     
     $result = $connection->fetchAllAssociative('SELECT * FROM app_todo');
