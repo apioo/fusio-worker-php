@@ -9,6 +9,7 @@ use Fusio\Worker\Generated\WorkerIf;
 
 class WorkerHandler implements WorkerIf
 {
+    private const ACTIONS_DIR = './actions';
     private ?\stdClass $connections = null;
 
     /**
@@ -16,7 +17,12 @@ class WorkerHandler implements WorkerIf
      */
     public function setConnection($connection)
     {
-        $file = './connections.json';
+        $dir = self::ACTIONS_DIR;
+        if (!is_dir($dir)) {
+            mkdir($dir);
+        }
+
+        $file = $dir . '/connections.json';
         $data = $this->readConnections();
 
         if (empty($connection->name)) {
@@ -41,7 +47,7 @@ class WorkerHandler implements WorkerIf
      */
     public function setAction($action)
     {
-        $dir = './actions';
+        $dir = self::ACTIONS_DIR;
         if (!is_dir($dir)) {
             mkdir($dir);
         }
@@ -69,7 +75,7 @@ class WorkerHandler implements WorkerIf
         $response = new ResponseBuilder();
 
         try {
-            $file = __DIR__ . '/../actions/' . $execute->action . '.php';
+            $file = self::ACTIONS_DIR . '/' . $execute->action . '.php';
             if (!is_file($file)) {
                 throw new \RuntimeException('Provided action does not exist');
             }
@@ -102,7 +108,7 @@ class WorkerHandler implements WorkerIf
             return $this->connections;
         }
 
-        $file = './connections.json';
+        $file = self::ACTIONS_DIR . '/connections.json';
         if (is_file($file)) {
             $this->connections = json_decode(file_get_contents($file));
         }
