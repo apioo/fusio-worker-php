@@ -17,12 +17,11 @@ class WorkerHandler implements WorkerIf
      */
     public function setConnection($connection)
     {
-        $dir = self::ACTIONS_DIR;
-        if (!is_dir($dir)) {
-            mkdir($dir);
+        if (!is_dir(self::ACTIONS_DIR)) {
+            mkdir(self::ACTIONS_DIR);
         }
 
-        $file = $dir . '/connections.json';
+        $file = self::ACTIONS_DIR . '/connections.json';
         $data = $this->readConnections();
 
         if (empty($connection->name)) {
@@ -47,16 +46,15 @@ class WorkerHandler implements WorkerIf
      */
     public function setAction($action)
     {
-        $dir = self::ACTIONS_DIR;
-        if (!is_dir($dir)) {
-            mkdir($dir);
+        if (!is_dir(self::ACTIONS_DIR)) {
+            mkdir(self::ACTIONS_DIR);
         }
 
         if (empty($action->name)) {
             return new Message(['success' => false, 'message' => 'Provided no action name']);
         }
 
-        $file = $dir . '/' . $action->name . '.php';
+        $file = self::ACTIONS_DIR . '/' . $action->name . '.php';
         file_put_contents($file, $action->code);
 
         clearstatcache();
