@@ -102,7 +102,7 @@ class WorkerHandler implements WorkerIf
         }
     }
 
-    private function readConnections(): ?\stdClass
+    private function readConnections(): \stdClass
     {
         if (!empty($this->connections)) {
             return $this->connections;
@@ -114,7 +114,7 @@ class WorkerHandler implements WorkerIf
         }
 
         if (!$this->connections instanceof \stdClass) {
-            return null;
+            return new \stdClass();
         }
 
         return $this->connections;
