@@ -13,7 +13,7 @@ $socket = new \Thrift\Server\TServerSocket('localhost', $port);
 $transportFactory = new \Thrift\Factory\TTransportFactory();
 $protocolFactory = new \Thrift\Factory\TBinaryProtocolFactory();
 
-echo 'Started Fusio worker' . "\n";
+echo 'Fusio Worker started' . "\n";
 
 $server = new \Thrift\Server\TSimpleServer($processor, $socket, $transportFactory, $transportFactory, $protocolFactory, $protocolFactory);
 $server->serve();
