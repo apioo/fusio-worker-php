@@ -18,7 +18,7 @@ class Connector
 
     public function getConnection(string $name)
     {
-        if ($this->connections[$name]) {
+        if (isset($this->connections[$name])) {
             return $this->connections[$name];
         }
 
