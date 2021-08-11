@@ -1,6 +1,22 @@
 FROM php:7.4-alpine
-RUN apk add --no-cache git
+RUN apk add --no-cache git postgresql-dev libxml2-dev curl-dev libzip-dev libpng-dev libmemcached-dev oniguruma-dev openssl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# install php extensions
+RUN docker-php-ext-install \
+    pgsql \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    simplexml \
+    dom \
+    bcmath \
+    curl \
+    zip \
+    mbstring \
+    intl \
+    xml \
+    gd \
+    soap
 WORKDIR /worker
 COPY . .
 RUN composer install
