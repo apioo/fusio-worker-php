@@ -11,6 +11,7 @@ class WorkerHandler implements WorkerIf
 {
     private const ACTIONS_DIR = './actions';
     private ?\stdClass $connections = null;
+    private array $actions = [];
 
     /**
      * @inheritDoc
@@ -57,6 +58,10 @@ class WorkerHandler implements WorkerIf
         $file = self::ACTIONS_DIR . '/' . $action->name . '.php';
         file_put_contents($file, $action->code);
 
+        if (isset($this->actions[$action->name])) {
+            unset($this->actions[$action->name]);
+        }
+
         clearstatcache();
 
         return new Message(['success' => true, 'message' => 'Action successful updated']);
@@ -70,22 +75,37 @@ class WorkerHandler implements WorkerIf
         $connector = new Connector($this->readConnections());
         $dispatcher = new Dispatcher();
         $logger = new Logger();
-        $response = new ResponseBuilder();
+        $responseBuilder = new ResponseBuilder();
 
         try {
-            $file = self::ACTIONS_DIR . '/' . $execute->action . '.php';
-            if (!is_file($file)) {
-                throw new \RuntimeException('Provided action does not exist');
+            if (!isset($this->actions[$execute->action])) {
+                $file = self::ACTIONS_DIR . '/' . $execute->action . '.php';
+                if (!is_file($file)) {
+                    throw new \RuntimeException('Provided action does not exist');
+                }
+
+                $handler = require $file;
+                if (!is_callable($handler)) {
+                    throw new \RuntimeException('Provided action does not return a callable');
+                }
+
+                $this->actions[$execute->action] = $handler;
             }
 
-            $handler = require $file;
-            if (!$handler instanceof \Closure) {
-                throw new \RuntimeException('Provided action does not return a closure');
-            }
+            $response = call_user_func_array($this->actions[$execute->action], [
+                $execute->request,
+                $execute->context,
+                $connector,
+                $responseBuilder,
+                $dispatcher,
+                $logger
+            ]);
 
-            $response = $handler($execute->request, $execute->context, $connector, $response, $dispatcher, $logger);
-
-            return new Result(['response' => $response, 'events' => $dispatcher->getEvents(), 'logs' => $logger->getLogs()]);
+            return new Result([
+                'response' => $response,
+                'events' => $dispatcher->getEvents(),
+                'logs' => $logger->getLogs()
+            ]);
         } catch (\Throwable $e) {
             $response = new Response([
                 'statusCode' => 500,
