@@ -6,12 +6,19 @@ use Fusio\Worker\Generated\Message;
 use Fusio\Worker\Generated\Response;
 use Fusio\Worker\Generated\Result;
 use Fusio\Worker\Generated\WorkerIf;
+use Psr\Log\LoggerInterface;
 
 class WorkerHandler implements WorkerIf
 {
     private const ACTIONS_DIR = './actions';
     private ?\stdClass $connections = null;
     private array $actions = [];
+    private LoggerInterface $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
 
     /**
      * @inheritDoc
@@ -39,6 +46,8 @@ class WorkerHandler implements WorkerIf
         // reset connections
         $this->connections = null;
 
+        $this->logger->info('Update connection ' . $connection->name);
+
         return new Message(['success' => true, 'message' => 'Connection successful updated']);
     }
 
@@ -64,6 +73,8 @@ class WorkerHandler implements WorkerIf
 
         clearstatcache();
 
+        $this->logger->info('Update action ' . $action->name);
+
         return new Message(['success' => true, 'message' => 'Action successful updated']);
     }
 
@@ -76,6 +87,8 @@ class WorkerHandler implements WorkerIf
         $dispatcher = new Dispatcher();
         $logger = new Logger();
         $responseBuilder = new ResponseBuilder();
+
+        $this->logger->error('Execute action ' . $execute->action);
 
         try {
             if (!isset($this->actions[$execute->action])) {
@@ -115,6 +128,8 @@ class WorkerHandler implements WorkerIf
                     'message' => 'An error occurred at the worker: ' . $e->getMessage(),
                 ]),
             ]);
+
+            $this->logger->error('An error occurred: ' . $e->getMessage());
 
             return new Result(['response' => $response]);
         }
