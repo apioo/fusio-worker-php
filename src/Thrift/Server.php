@@ -24,6 +24,7 @@ class Server
 
     public function serve()
     {
+        Loop::set(new Loop\UvDriver());
         Loop::run(function () {
             $clientHandler = asyncCoroutine(function (ResourceSocket $socket) {
                 $transport = new Transport($socket);
