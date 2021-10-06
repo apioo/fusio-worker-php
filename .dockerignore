@@ -1,1 +1,4 @@
+.github
+actions
 vendor
+composer.lock

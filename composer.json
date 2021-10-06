@@ -11,11 +11,9 @@
         }
     ],
     "require": {
-        "packaged/thrift": "^0.13.01",
+        "packaged/thrift": "^0.13",
         "doctrine/dbal": "^3.1",
         "guzzlehttp/guzzle": "^7.3",
-        "amphp/amp": "^2.6",
-        "amphp/socket": "^1.2",
         "monolog/monolog": "^2.3"
     },
     "autoload": {

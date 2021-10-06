@@ -1,9 +1,27 @@
-FROM php:7.4-alpine
-RUN apk add --no-cache git postgresql-dev libxml2-dev curl-dev libzip-dev libpng-dev libmemcached-dev oniguruma-dev openssl libuv-dev autoconf gcc g++ make
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+FROM php:7.4-apache
+ENV COMPOSER_VERSION "2.1.9"
+ENV COMPOSER_SHA256 "4d00b70e146c17d663ad2f9a21ebb4c9d52b021b1ac15f648b4d371c04d648ba"
+
+# install default packages
+RUN apt-get update && apt-get -y install \
+    wget \
+    git \
+    unzip \
+    default-mysql-client \
+    libpq-dev \
+    libxml2-dev \
+    libcurl3-dev \
+    libzip-dev \
+    libonig-dev \
+    libpng-dev \
+    openssl \
+    libssl-dev \
+    libcurl4-openssl-dev
+
 # install php extensions
 RUN docker-php-ext-install \
     pgsql \
+    mysqli \
     pdo \
     pdo_mysql \
     pdo_pgsql \
@@ -17,12 +35,28 @@ RUN docker-php-ext-install \
     xml \
     gd \
     soap
+
 # install pecl
-RUN pecl install uv-0.2.4
-RUN docker-php-ext-enable uv
-WORKDIR /worker
-COPY . .
-RUN composer install
-EXPOSE 9092
+RUN pecl install mongodb-1.9.0
+
+RUN docker-php-ext-enable \
+    mongodb
+
+# install composer
+RUN wget -O /usr/bin/composer https://getcomposer.org/download/${COMPOSER_VERSION}/composer.phar
+RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
+RUN chmod +x /usr/bin/composer
+
+# install worker
+COPY . /var/www/html/worker
+RUN cd /var/www/html/worker && /usr/bin/composer install
+RUN chown -R www-data: /var/www/html/worker
+
+# apache config
+RUN sed -i 's/80/9092/g' /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's!/var/www/html!/var/www/html/worker/public!g' /etc/apache2/sites-available/*.conf
+RUN sed -i 's!/var/www/!/var/www/html/worker/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
 VOLUME /worker/actions
-CMD ["php", "./worker.php"]
+
+EXPOSE 9092

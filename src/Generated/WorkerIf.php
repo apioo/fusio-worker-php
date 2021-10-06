@@ -16,19 +16,32 @@ use Thrift\Protocol\TProtocol;
 use Thrift\Protocol\TBinaryProtocolAccelerated;
 use Thrift\Exception\TApplicationException;
 
+/**
+ * The Fusio Worker provides a simple interface so that the Fusio instance can interact with the worker.
+ */
 interface WorkerIf
 {
     /**
+     * Sets a specific connection to the worker. This method is invoked everytime a connection is created or updated at
+     * the Fusio instance. The worker must persist the connection so at it can be reused on execution
+     * 
      * @param \Fusio\Worker\Generated\Connection $connection
      * @return \Fusio\Worker\Generated\Message
      */
     public function setConnection($connection);
     /**
+     * Sets a specific action to the worker. This method is invoked everytime an action is created or updated at the Fusio
+     * instance. The worker must persist the action code at a file which then can be executed. If your language needs a
+     * compile step it should be invoked at this call
+     * 
      * @param \Fusio\Worker\Generated\Action $action
      * @return \Fusio\Worker\Generated\Message
      */
     public function setAction($action);
     /**
+     * Is called if an user invokes a route at Fusio and this routes has a worker action assigned. The worker must then
+     * execute the provided action name and return the response
+     * 
      * @param \Fusio\Worker\Generated\Execute $execute
      * @return \Fusio\Worker\Generated\Result
      */

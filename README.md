@@ -45,39 +45,3 @@ and which implementation is used:
 | `Fusio.Adapter.Http.Connection.Http` | `guzzlehttp/guzzle`
 | `Fusio.Adapter.Mongodb.Connection.MongoDB` | `-`
 | `Fusio.Adapter.Elasticsearch.Connection.Elasticsearch` | `-`
-
-## Design
-
-It is important to note that the worker is implemented as real server using `amphp/amp`
-so we dont have a classical web server setup. This means that we dont have a
-shared-nothing architecture and that you could run into memory-leaks if you store
-data in a global context.
-
-In general the worker requires the action once and then uses the returned closure
-to serve all requests. If we update an action we require the action again to also
-update the closure. But this means also if your action has previously defined a
-function i.e. `doFoo` you will run into an `Cannot redeclare doFoo()` error.
-So it is recommended to execute all actions inside the closure and without global
-state and side effects.
-
-On the other side this approach has a great performance since we only need to
-require the action once and then use the closure to serve all requests.
-Because of this setup we could write i.e. the following action, which simply
-increases a count per request:
-
-```php
-<?php
-
-$count = 0;
-
-return function(Request $request, Context $context, Connector $connector, ResponseBuilder $response, Dispatcher $dispatcher, Logger $logger) use ($count) {
-
-    $count++;
-
-    return $response->build(200, [], [
-        'count' => $count,
-    ]);
-};
-
-```
-
