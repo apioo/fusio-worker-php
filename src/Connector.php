@@ -3,6 +3,7 @@
 namespace Fusio\Worker;
 
 use Doctrine\DBAL\DriverManager;
+use Elasticsearch\ClientBuilder;
 use GuzzleHttp\Client;
 
 class Connector
@@ -66,6 +67,17 @@ class Connector
             $options['http_errors'] = false;
 
             return $this->connections[$name] = new Client($options);
+        } else if ($config->type === 'Fusio.Adapter.Mongodb.Connection.MongoDB') {
+            $client = new \MongoDB\Client($config->config->url);
+            $database = $client->selectDatabase($config->config->database);
+
+            return $this->connections[$name] = $database;
+        } else if ($config->type === 'Fusio.Adapter.Elasticsearch.Connection.Elasticsearch') {
+            $client = ClientBuilder::create()
+                ->setHosts(explode(',', $config->config->host))
+                ->build();
+
+            return $this->connections[$name] = $client;
         } else {
             throw new \RuntimeException('Provided a not supported connection type');
         }

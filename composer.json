@@ -14,7 +14,9 @@
         "packaged/thrift": "^0.13",
         "doctrine/dbal": "^3.1",
         "guzzlehttp/guzzle": "^7.3",
-        "monolog/monolog": "^2.3"
+        "monolog/monolog": "^2.3",
+        "elasticsearch/elasticsearch": "^7.15",
+        "mongodb/mongodb": "^1.10"
     },
     "autoload": {
         "psr-4": {

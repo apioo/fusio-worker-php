@@ -43,5 +43,5 @@ and which implementation is used:
 | `Fusio.Adapter.Sql.Connection.Sql` | `doctrine/dbal`
 | `Fusio.Adapter.Sql.Connection.SqlAdvanced` | `doctrine/dbal`
 | `Fusio.Adapter.Http.Connection.Http` | `guzzlehttp/guzzle`
-| `Fusio.Adapter.Mongodb.Connection.MongoDB` | `-`
-| `Fusio.Adapter.Elasticsearch.Connection.Elasticsearch` | `-`
+| `Fusio.Adapter.Mongodb.Connection.MongoDB` | `mongodb/mongodb`
+| `Fusio.Adapter.Elasticsearch.Connection.Elasticsearch` | `elasticsearch/elasticsearch`
