@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
 
 class WorkerHandler implements WorkerIf
 {
-    private const ACTIONS_DIR = './actions';
+    private const ACTIONS_DIR = __DIR__.'./actions';
     private ?\stdClass $connections = null;
     private array $actions = [];
     private LoggerInterface $logger;
