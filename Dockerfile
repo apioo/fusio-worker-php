@@ -37,7 +37,7 @@ RUN docker-php-ext-install \
     soap
 
 # install pecl
-RUN pecl install mongodb-1.9.0
+RUN pecl install mongodb-1.12.0
 
 RUN docker-php-ext-enable \
     mongodb
@@ -49,7 +49,7 @@ RUN chmod +x /usr/bin/composer
 
 # install worker
 COPY . /var/www/html/worker
-RUN cd /var/www/html/worker && /usr/bin/composer install
+RUN cd /var/www/html/worker && /usr/bin/composer install && mkdir /var/www/html/worker/actions
 RUN chown -R www-data: /var/www/html/worker
 
 # apache config
@@ -57,6 +57,6 @@ RUN sed -i 's/80/9092/g' /etc/apache2/ports.conf /etc/apache2/sites-available/00
 RUN sed -i 's!/var/www/html!/var/www/html/worker/public!g' /etc/apache2/sites-available/*.conf
 RUN sed -i 's!/var/www/!/var/www/html/worker/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-VOLUME /worker/actions
+VOLUME /var/www/html/worker/actions
 
 EXPOSE 9092
