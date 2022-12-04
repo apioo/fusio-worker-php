@@ -17,7 +17,7 @@ class Connector
         $this->connections = [];
     }
 
-    public function getConnection(string $name)
+    public function getConnection(string $name): mixed
     {
         if (isset($this->connections[$name])) {
             return $this->connections[$name];
@@ -30,21 +30,26 @@ class Connector
         $config = $this->configs->{$name};
 
         if ($config->type === 'Fusio.Adapter.Sql.Connection.Sql') {
-            $params = [
-                'dbname'   => $config->config->database,
-                'user'     => $config->config->username,
-                'password' => $config->config->password,
-                'host'     => $config->config->host,
-                'driver'   => $config->config->type,
-            ];
+            $database = $config->config->database ?? null;
+            $username = $config->config->username ?? null;
+            $password = $config->config->password ?? null;
+            $host     = $config->config->host ?? null;
+            $type     = $config->config->type ?? null;
 
-            return $this->connections[$name] = DriverManager::getConnection($params);
+            return $this->connections[$name] = DriverManager::getConnection([
+                'dbname'   => (string) $database,
+                'user'     => (string) $username,
+                'password' => (string) $password,
+                'host'     => (string) $host,
+                'driver'   => (string) $type,
+            ]);
         } else if ($config->type === 'Fusio.Adapter.Sql.Connection.SqlAdvanced') {
-            $params = [
-                'url' => $config->config->url,
-            ];
+            $url = $config->config->url ?? null;
 
-            return $this->connections[$name] = DriverManager::getConnection($params);
+            /** @psalm-suppress InvalidArgument */
+            return $this->connections[$name] = DriverManager::getConnection([
+                'url' => (string) $url,
+            ]);
         } else if ($config->type === 'Fusio.Adapter.Http.Connection.Http') {
             $options = [];
 

@@ -18,6 +18,9 @@
         "elasticsearch/elasticsearch": "^7.15",
         "mongodb/mongodb": "^1.10"
     },
+    "require-dev": {
+        "vimeo/psalm": "^5.1"
+    },
     "autoload": {
         "psr-4": {
             "Fusio\\Worker\\": "src/"

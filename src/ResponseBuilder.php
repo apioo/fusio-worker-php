@@ -6,7 +6,7 @@ use Fusio\Worker\Generated\Response;
 
 class ResponseBuilder
 {
-    public function build(int $statusCode, array $headers, $body): Response
+    public function build(int $statusCode, array $headers, mixed $body): Response
     {
         return new Response([
             'statusCode' => $statusCode,

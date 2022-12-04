@@ -11,7 +11,7 @@ class Dispatcher
      */
     private array $events = [];
 
-    public function dispatch(string $eventName, $data)
+    public function dispatch(string $eventName, mixed $data): void
     {
         $this->events[] = new Event([
             'eventName' => $eventName,
