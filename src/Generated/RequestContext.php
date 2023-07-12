@@ -16,61 +16,55 @@ use Thrift\Protocol\TProtocol;
 use Thrift\Protocol\TBinaryProtocolAccelerated;
 use Thrift\Exception\TApplicationException;
 
-class Execute
+class RequestContext
 {
     static public $isValidate = false;
 
     static public $_TSPEC = array(
         1 => array(
-            'var' => 'action',
+            'var' => 'name',
             'isRequired' => false,
             'type' => TType::STRING,
         ),
         2 => array(
-            'var' => 'request',
+            'var' => 'parameters',
             'isRequired' => false,
-            'type' => TType::STRUCT,
-            'class' => '\Fusio\Worker\Generated\Request',
-        ),
-        3 => array(
-            'var' => 'context',
-            'isRequired' => false,
-            'type' => TType::STRUCT,
-            'class' => '\Fusio\Worker\Generated\Context',
+            'type' => TType::MAP,
+            'ktype' => TType::STRING,
+            'vtype' => TType::STRING,
+            'key' => array(
+                'type' => TType::STRING,
+            ),
+            'val' => array(
+                'type' => TType::STRING,
+                ),
         ),
     );
 
     /**
      * @var string
      */
-    public $action = null;
+    public $name = null;
     /**
-     * @var \Fusio\Worker\Generated\Request
+     * @var array
      */
-    public $request = null;
-    /**
-     * @var \Fusio\Worker\Generated\Context
-     */
-    public $context = null;
+    public $parameters = null;
 
     public function __construct($vals = null)
     {
         if (is_array($vals)) {
-            if (isset($vals['action'])) {
-                $this->action = $vals['action'];
+            if (isset($vals['name'])) {
+                $this->name = $vals['name'];
             }
-            if (isset($vals['request'])) {
-                $this->request = $vals['request'];
-            }
-            if (isset($vals['context'])) {
-                $this->context = $vals['context'];
+            if (isset($vals['parameters'])) {
+                $this->parameters = $vals['parameters'];
             }
         }
     }
 
     public function getName()
     {
-        return 'Execute';
+        return 'RequestContext';
     }
 
 
@@ -89,23 +83,26 @@ class Execute
             switch ($fid) {
                 case 1:
                     if ($ftype == TType::STRING) {
-                        $xfer += $input->readString($this->action);
+                        $xfer += $input->readString($this->name);
                     } else {
                         $xfer += $input->skip($ftype);
                     }
                     break;
                 case 2:
-                    if ($ftype == TType::STRUCT) {
-                        $this->request = new \Fusio\Worker\Generated\Request();
-                        $xfer += $this->request->read($input);
-                    } else {
-                        $xfer += $input->skip($ftype);
-                    }
-                    break;
-                case 3:
-                    if ($ftype == TType::STRUCT) {
-                        $this->context = new \Fusio\Worker\Generated\Context();
-                        $xfer += $this->context->read($input);
+                    if ($ftype == TType::MAP) {
+                        $this->parameters = array();
+                        $_size18 = 0;
+                        $_ktype19 = 0;
+                        $_vtype20 = 0;
+                        $xfer += $input->readMapBegin($_ktype19, $_vtype20, $_size18);
+                        for ($_i22 = 0; $_i22 < $_size18; ++$_i22) {
+                            $key23 = '';
+                            $val24 = '';
+                            $xfer += $input->readString($key23);
+                            $xfer += $input->readString($val24);
+                            $this->parameters[$key23] = $val24;
+                        }
+                        $xfer += $input->readMapEnd();
                     } else {
                         $xfer += $input->skip($ftype);
                     }
@@ -123,26 +120,23 @@ class Execute
     public function write($output)
     {
         $xfer = 0;
-        $xfer += $output->writeStructBegin('Execute');
-        if ($this->action !== null) {
-            $xfer += $output->writeFieldBegin('action', TType::STRING, 1);
-            $xfer += $output->writeString($this->action);
+        $xfer += $output->writeStructBegin('RequestContext');
+        if ($this->name !== null) {
+            $xfer += $output->writeFieldBegin('name', TType::STRING, 1);
+            $xfer += $output->writeString($this->name);
             $xfer += $output->writeFieldEnd();
         }
-        if ($this->request !== null) {
-            if (!is_object($this->request)) {
+        if ($this->parameters !== null) {
+            if (!is_array($this->parameters)) {
                 throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
             }
-            $xfer += $output->writeFieldBegin('request', TType::STRUCT, 2);
-            $xfer += $this->request->write($output);
-            $xfer += $output->writeFieldEnd();
-        }
-        if ($this->context !== null) {
-            if (!is_object($this->context)) {
-                throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+            $xfer += $output->writeFieldBegin('parameters', TType::MAP, 2);
+            $output->writeMapBegin(TType::STRING, TType::STRING, count($this->parameters));
+            foreach ($this->parameters as $kiter25 => $viter26) {
+                $xfer += $output->writeString($kiter25);
+                $xfer += $output->writeString($viter26);
             }
-            $xfer += $output->writeFieldBegin('context', TType::STRUCT, 3);
-            $xfer += $this->context->write($output);
+            $output->writeMapEnd();
             $xfer += $output->writeFieldEnd();
         }
         $xfer += $output->writeFieldStop();
