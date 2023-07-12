@@ -3,6 +3,7 @@
 namespace Fusio\Worker;
 
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
 use Elasticsearch\ClientBuilder;
 use GuzzleHttp\Client;
 
@@ -37,19 +38,15 @@ class Connector
             $type     = $config->config->type ?? null;
 
             return $this->connections[$name] = DriverManager::getConnection([
-                'dbname'   => (string) $database,
-                'user'     => (string) $username,
-                'password' => (string) $password,
-                'host'     => (string) $host,
-                'driver'   => (string) $type,
+                'dbname'   => $database,
+                'user'     => $username,
+                'password' => $password,
+                'host'     => $host,
+                'driver'   => $type,
             ]);
         } else if ($config->type === 'Fusio.Adapter.Sql.Connection.SqlAdvanced') {
-            $url = $config->config->url ?? null;
-
-            /** @psalm-suppress InvalidArgument */
-            return $this->connections[$name] = DriverManager::getConnection([
-                'url' => (string) $url,
-            ]);
+            $params = (new DsnParser())->parse($config->config->url ?? '');
+            return $this->connections[$name] = DriverManager::getConnection($params);
         } else if ($config->type === 'Fusio.Adapter.Http.Connection.Http') {
             $options = [];
 
