@@ -2,12 +2,10 @@
 
 namespace Fusio\Worker;
 
-use Fusio\Worker\Generated\Log;
-
 class Logger
 {
     /**
-     * @var Log[]
+     * @var ResponseLog[]
      */
     private array $logs = [];
 
@@ -53,10 +51,11 @@ class Logger
 
     private function log(string $level, string $message): void
     {
-        $this->logs[] = new Log([
-            'level' => $level,
-            'message' => $message
-        ]);
+        $log = new ResponseLog();
+        $log->setLevel($level);
+        $log->setMessage($message);
+
+        $this->logs[] = $log;
     }
 
     public function getLogs(): array

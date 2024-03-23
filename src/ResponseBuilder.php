@@ -2,16 +2,17 @@
 
 namespace Fusio\Worker;
 
-use Fusio\Worker\Generated\Response;
+use PSX\Record\Record;
 
 class ResponseBuilder
 {
-    public function build(int $statusCode, array $headers, mixed $body): Response
+    public function build(int $statusCode, array $headers, mixed $body): ResponseHTTP
     {
-        return new Response([
-            'statusCode' => $statusCode,
-            'headers' => $headers,
-            'body' => json_encode($body)
-        ]);
+        $return = new ResponseHTTP();
+        $return->setStatusCode($statusCode);
+        $return->setHeaders(Record::fromArray($headers));
+        $return->setBody($body);
+
+        return $return;
     }
 }
