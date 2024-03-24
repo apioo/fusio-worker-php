@@ -62,9 +62,10 @@ class Worker
             mkdir(self::ACTIONS_DIR);
         }
 
+        $file = $this->getActionFile($action);
         $code = $payload->code ?? '';
 
-        file_put_contents($this->getActionFile($action), $code);
+        file_put_contents($file, $code);
 
         return $this->newMessage(true, 'Action successfully updated');
     }
@@ -75,14 +76,18 @@ class Worker
             mkdir(self::ACTIONS_DIR);
         }
 
-        unlink($this->getActionFile($action));
+        $file = $this->getActionFile($action);
+
+        if (is_file($file)) {
+            unlink($file);
+        }
 
         return $this->newMessage(true, 'Action successfully deleted');
     }
 
     private function getActionFile(string $action): string
     {
-        if (!preg_match('/^[A-Za-z0-9_]{3,30}$/', $action)) {
+        if (!preg_match('/^[A-Za-z0-9_-]{3,30}$/', $action)) {
             throw new \RuntimeException('Provided no valid action name');
         }
 
