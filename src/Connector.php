@@ -29,10 +29,11 @@ class Connector
             throw new \RuntimeException('Connection does not exist');
         }
 
+        /** @var ExecuteConnection $connection */
         $connection = $this->connections->get($name);
-        $config = \json_decode(\base64_decode($connection->config ?? ''));
+        $config = \json_decode(\base64_decode($connection->getConfig() ?? ''));
 
-        if ($connection->type === 'Fusio.Adapter.Sql.Connection.Sql') {
+        if ($connection->getType() === 'Fusio.Adapter.Sql.Connection.Sql') {
             $database = $config->database ?? null;
             $username = $config->username ?? null;
             $password = $config->password ?? null;
@@ -46,10 +47,10 @@ class Connector
                 'host'     => $host,
                 'driver'   => $type,
             ]);
-        } else if ($connection->type === 'Fusio.Adapter.Sql.Connection.SqlAdvanced') {
+        } else if ($connection->getType() === 'Fusio.Adapter.Sql.Connection.SqlAdvanced') {
             $params = (new DsnParser())->parse($config->url ?? '');
             return $this->instances[$name] = DriverManager::getConnection($params);
-        } else if ($connection->type === 'Fusio.Adapter.Http.Connection.Http') {
+        } else if ($connection->getType() === 'Fusio.Adapter.Http.Connection.Http') {
             $options = [];
 
             $baseUri = $config->url ?? null;
@@ -71,19 +72,19 @@ class Connector
             $options['http_errors'] = false;
 
             return $this->instances[$name] = new Client($options);
-        } else if ($connection->type === 'Fusio.Adapter.Mongodb.Connection.MongoDB') {
+        } else if ($connection->getType() === 'Fusio.Adapter.Mongodb.Connection.MongoDB') {
             $client = new \MongoDB\Client($config->url);
             $database = $client->selectDatabase($config->database);
 
             return $this->instances[$name] = $database;
-        } else if ($connection->type === 'Fusio.Adapter.Elasticsearch.Connection.Elasticsearch') {
+        } else if ($connection->getType() === 'Fusio.Adapter.Elasticsearch.Connection.Elasticsearch') {
             $client = ClientBuilder::create()
                 ->setHosts(explode(',', $config->host))
                 ->build();
 
             return $this->instances[$name] = $client;
         } else {
-            throw new \RuntimeException('Provided a not supported connection type');
+            throw new \RuntimeException('Provided a not supported connection type: ' . $connection->getType());
         }
     }
 }
