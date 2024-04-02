@@ -6,13 +6,18 @@ use PSX\Record\Record;
 
 class ResponseBuilder
 {
-    public function build(int $statusCode, array $headers, mixed $body): ResponseHTTP
-    {
-        $return = new ResponseHTTP();
-        $return->setStatusCode($statusCode);
-        $return->setHeaders(Record::fromArray($headers));
-        $return->setBody($body);
+    private ?ResponseHTTP $response = null;
 
-        return $return;
+    public function build(int $statusCode, array $headers, mixed $body): void
+    {
+        $this->response = new ResponseHTTP();
+        $this->response->setStatusCode($statusCode);
+        $this->response->setHeaders(Record::fromArray($headers));
+        $this->response->setBody($body);
+    }
+
+    public function getResponse(): ?ResponseHTTP
+    {
+        return $this->response;
     }
 }

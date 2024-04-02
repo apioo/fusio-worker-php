@@ -34,7 +34,7 @@ class Worker
             throw new \RuntimeException('Provided action does not return a callable');
         }
 
-        $response = call_user_func_array($handler, [
+        call_user_func_array($handler, [
             $execute->getRequest(),
             $execute->getContext(),
             $connector,
@@ -43,6 +43,7 @@ class Worker
             $logger
         ]);
 
+        $response = $responseBuilder->getResponse();
         if (!$response instanceof ResponseHTTP) {
             $response = new ResponseHTTP();
             $response->setStatusCode(204);
