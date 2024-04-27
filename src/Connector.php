@@ -54,18 +54,18 @@ class Connector
             $options = [];
 
             $baseUri = $config->url ?? null;
-            if (!empty($baseUri)) {
+            if ($baseUri !== null) {
                 $options['base_uri'] = $baseUri;
             }
 
             $username = $config->username ?? null;
             $password = $config->password ?? null;
-            if (!empty($username) && !empty($password)) {
+            if ($username !== null && $password !== null) {
                 $options['auth'] = [$username, $password];
             }
 
             $proxy = $config->proxy ?? null;
-            if (!empty($proxy)) {
+            if ($proxy !== null) {
                 $options['proxy'] = $proxy;
             }
 

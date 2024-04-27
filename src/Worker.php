@@ -2,6 +2,7 @@
 
 namespace Fusio\Worker;
 
+use PSX\Record\Record;
 use PSX\Schema\SchemaManager;
 use PSX\Schema\SchemaTraverser;
 use PSX\Schema\Visitor\TypeVisitor;
@@ -22,12 +23,15 @@ class Worker
     public function execute(string $action, \stdClass $payload): Response
     {
         $execute = $this->parseExecute($payload);
-        $connector = new Connector($execute->getConnections());
+        $connector = new Connector($execute->getConnections() ?? new Record());
         $dispatcher = new Dispatcher();
         $logger = new Logger();
         $responseBuilder = new ResponseBuilder();
 
         $file = $this->getActionFile($action);
+        if (!is_file($file)) {
+            throw new \RuntimeException('Provided action file does not exist');
+        }
 
         $handler = require $file;
         if (!is_callable($handler)) {
