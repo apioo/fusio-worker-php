@@ -2,8 +2,8 @@
 # Fusio-Worker-PHP
 
 A Fusio worker implementation to execute PHP code.
-More information about the worker API at:
-https://www.fusio-project.org/documentation/worker
+More information about the Worker system at our documentation:
+https://docs.fusio-project.org/docs/use_cases/api_gateway/worker
 
 ## Example
 
@@ -15,19 +15,20 @@ from a database and returns a response
 
 use Fusio\Worker\Connector;
 use Fusio\Worker\Dispatcher;
-use Fusio\Worker\Generated\Context;
-use Fusio\Worker\Generated\Request;
+use Fusio\Worker\ExecuteContext;
+use Fusio\Worker\ExecuteRequest;
 use Fusio\Worker\Logger;
 use Fusio\Worker\ResponseBuilder;
 
-return function(Request $request, Context $context, Connector $connector, ResponseBuilder $response, Dispatcher $dispatcher, Logger $logger) {
-    $connection = $connector->getConnection('my_db');
-    
-    $result = $connection->fetchAllAssociative('SELECT * FROM app_todo');
-    
+return function(ExecuteRequest $request, ExecuteContext $context, Connector $connector, ResponseBuilder $response, Dispatcher $dispatcher, Logger $logger) {
+    $connection = $connector->getConnection('app');
+
+    $query = 'SELECT name, description FROM app_product_0';
+    $entries = $connection->fetchAllAssociative($query);
+
     return $response->build(200, [], [
         'foo' => 'bar',
-        'result' => $result,
+        'entries' => $entries,
     ]);
 };
 
