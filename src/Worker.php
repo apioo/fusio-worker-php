@@ -2,63 +2,27 @@
 
 namespace Fusio\Worker;
 
-use PSX\Record\Record;
-use PSX\Schema\SchemaManager;
-use PSX\Schema\SchemaTraverser;
-use PSX\Schema\Visitor\TypeVisitor;
+use Fusio\Worker\Runtime\Runtime;
 
 class Worker
 {
     private const ACTIONS_DIR = __DIR__ . '/../actions';
 
+    private Runtime $runtime;
+
+    public function __construct()
+    {
+        $this->runtime = new Runtime();
+    }
+
     public function get(): About
     {
-        $about = new About();
-        $about->setApiVersion('1.0.0');
-        $about->setLanguage('php');
-
-        return $about;
+        return $this->runtime->get();
     }
 
     public function execute(string $action, \stdClass $payload): Response
     {
-        $execute = $this->parseExecute($payload);
-        $connector = new Connector($execute->getConnections() ?? new Record());
-        $dispatcher = new Dispatcher();
-        $logger = new Logger();
-        $responseBuilder = new ResponseBuilder();
-
-        $file = $this->getActionFile($action);
-        if (!is_file($file)) {
-            throw new \RuntimeException('Provided action file does not exist');
-        }
-
-        $handler = require $file;
-        if (!is_callable($handler)) {
-            throw new \RuntimeException('Provided action does not return a callable');
-        }
-
-        call_user_func_array($handler, [
-            $execute->getRequest(),
-            $execute->getContext(),
-            $connector,
-            $responseBuilder,
-            $dispatcher,
-            $logger
-        ]);
-
-        $response = $responseBuilder->getResponse();
-        if (!$response instanceof ResponseHTTP) {
-            $response = new ResponseHTTP();
-            $response->setStatusCode(204);
-        }
-
-        $return = new Response();
-        $return->setEvents($dispatcher->getEvents());
-        $return->setLogs($logger->getLogs());
-        $return->setResponse($response);
-
-        return $return;
+        return $this->runtime->run($this->getActionFile($action), $payload);
     }
 
     public function put(string $action, \stdClass $payload): Message
@@ -106,17 +70,5 @@ class Worker
         $return->setMessage($message);
 
         return $return;
-    }
-
-    private function parseExecute(\stdClass $payload): Execute
-    {
-        $schema = (new SchemaManager())->getSchema(Execute::class);
-        $execute = (new SchemaTraverser())->traverse($payload, $schema, new TypeVisitor());
-
-        if (!$execute instanceof Execute) {
-            throw new \RuntimeException('Could not read execute payload');
-        }
-
-        return $execute;
     }
 }

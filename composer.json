@@ -11,12 +11,8 @@
         }
     ],
     "require": {
-        "fusio/worker-sdk": "^0.1",
-        "doctrine/dbal": "^3.1",
-        "guzzlehttp/guzzle": "^7.3",
-        "monolog/monolog": "^3.0",
-        "elasticsearch/elasticsearch": "^7.15",
-        "mongodb/mongodb": "^1.10"
+        "fusio/worker-runtime": "^0.1",
+        "monolog/monolog": "^3.0"
     },
     "require-dev": {
         "vimeo/psalm": "^5.1"
