@@ -11,8 +11,7 @@
         }
     ],
     "require": {
-        "fusio/worker-runtime": "^0.2",
-        "monolog/monolog": "^3.0"
+        "fusio/worker-runtime": "^0.2"
     },
     "require-dev": {
         "vimeo/psalm": "^5.1"
