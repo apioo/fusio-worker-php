@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "fusio/worker-runtime": "^0.1",
+        "fusio/worker-runtime": "^0.2",
         "monolog/monolog": "^3.0"
     },
     "require-dev": {
