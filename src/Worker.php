@@ -56,7 +56,7 @@ class Worker
 
     private function getActionFile(string $action): string
     {
-        if (!preg_match('/^[A-Za-z0-9_-]{3,30}$/', $action)) {
+        if (!preg_match('/^[A-Za-z0-9_-]{3,255}$/', $action)) {
             throw new \RuntimeException('Provided no valid action name');
         }
 
