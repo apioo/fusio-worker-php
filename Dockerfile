@@ -1,6 +1,6 @@
-FROM php:8.2-apache
-ENV COMPOSER_VERSION "2.1.9"
-ENV COMPOSER_SHA256 "4d00b70e146c17d663ad2f9a21ebb4c9d52b021b1ac15f648b4d371c04d648ba"
+FROM php:8.4-apache
+ENV COMPOSER_VERSION "2.8.10"
+ENV COMPOSER_SHA256 "28dbb6bd8bef31479c7985b774c130a8bda37dbe63c35b56f6cb6bc377427573"
 
 # install default packages
 RUN apt-get update && apt-get -y install \
@@ -38,7 +38,7 @@ RUN docker-php-ext-install \
     soap
 
 # install pecl
-RUN pecl install mongodb-1.18.1
+RUN pecl install mongodb-2.1.1
 
 RUN docker-php-ext-enable \
     mongodb
