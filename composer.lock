@@ -571,34 +571,34 @@
         },
         {
             "name": "fusio/worker-runtime",
-            "version": "v0.2.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/fusio-worker-php-runtime.git",
-                "reference": "0f9dfd1a9cab9a94ed81f0e69fe568bb45775c54"
+                "reference": "01da28b621177100344568c5c8025381f15b9bdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/fusio-worker-php-runtime/zipball/0f9dfd1a9cab9a94ed81f0e69fe568bb45775c54",
-                "reference": "0f9dfd1a9cab9a94ed81f0e69fe568bb45775c54",
+                "url": "https://api.github.com/repos/apioo/fusio-worker-php-runtime/zipball/01da28b621177100344568c5c8025381f15b9bdd",
+                "reference": "01da28b621177100344568c5c8025381f15b9bdd",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^3.1",
                 "elasticsearch/elasticsearch": "^7.15",
                 "fusio/engine": "^6.5",
-                "fusio/worker-sdk": "^0.1",
+                "fusio/worker-sdk": "^0.2",
                 "guzzlehttp/guzzle": "^7.3",
-                "mongodb/mongodb": "^1.10",
+                "mongodb/mongodb": "^2.1",
                 "php": ">=8.1",
                 "sdkfabric/airtable": "^0.4",
                 "sdkfabric/discord": "^0.2",
-                "sdkfabric/notion": "^0.1",
+                "sdkfabric/notion": "^v0.2",
                 "sdkfabric/starwars": "^0.1",
                 "sdkfabric/twitter": "^3.0"
             },
             "require-dev": {
-                "vimeo/psalm": "^5.1"
+                "vimeo/psalm": "^6.0"
             },
             "type": "library",
             "autoload": {
@@ -621,7 +621,7 @@
             "homepage": "https://www.fusio-project.org",
             "support": {
                 "issues": "https://github.com/apioo/fusio-worker-php-runtime/issues",
-                "source": "https://github.com/apioo/fusio-worker-php-runtime/tree/v0.2.0"
+                "source": "https://github.com/apioo/fusio-worker-php-runtime/tree/v0.2.1"
             },
             "funding": [
                 {
@@ -637,27 +637,24 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-06-08T21:20:36+00:00"
+            "time": "2025-08-09T20:31:07+00:00"
         },
         {
             "name": "fusio/worker-sdk",
-            "version": "v0.1.1",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/fusio-worker-sdk.git",
-                "reference": "fba5bca2776e3e133065b552761f529020c334d7"
+                "reference": "b23476ad66478997ee5963f4979eb9921a9aa844"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/fusio-worker-sdk/zipball/fba5bca2776e3e133065b552761f529020c334d7",
-                "reference": "fba5bca2776e3e133065b552761f529020c334d7",
+                "url": "https://api.github.com/repos/apioo/fusio-worker-sdk/zipball/b23476ad66478997ee5963f4979eb9921a9aa844",
+                "reference": "b23476ad66478997ee5963f4979eb9921a9aa844",
                 "shasum": ""
             },
             "require": {
-                "sdkgen/client": "^1.0"
-            },
-            "require-dev": {
-                "vimeo/psalm": "^5.1"
+                "sdkgen/client": "^2.0"
             },
             "type": "library",
             "autoload": {
@@ -680,7 +677,7 @@
             "homepage": "https://www.fusio-project.org",
             "support": {
                 "issues": "https://github.com/apioo/fusio-worker-sdk/issues",
-                "source": "https://github.com/apioo/fusio-worker-sdk/tree/v0.1.1"
+                "source": "https://github.com/apioo/fusio-worker-sdk/tree/v0.2.1"
             },
             "funding": [
                 {
@@ -696,7 +693,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-03-23T15:48:58+00:00"
+            "time": "2025-03-22T20:07:34+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1025,23 +1022,24 @@
         },
         {
             "name": "mongodb/mongodb",
-            "version": "1.21.1",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "37bc8df3a67ddf8380704a5ba5dbd00e92ec1f6a"
+                "reference": "3bbe7ba9578724c7e1f47fcd17c881c0995baaad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/37bc8df3a67ddf8380704a5ba5dbd00e92ec1f6a",
-                "reference": "37bc8df3a67ddf8380704a5ba5dbd00e92ec1f6a",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/3bbe7ba9578724c7e1f47fcd17c881c0995baaad",
+                "reference": "3bbe7ba9578724c7e1f47fcd17c881c0995baaad",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.0",
-                "ext-mongodb": "^1.21.0",
+                "ext-mongodb": "^2.1",
                 "php": "^8.1",
-                "psr/log": "^1.1.4|^2|^3"
+                "psr/log": "^1.1.4|^2|^3",
+                "symfony/polyfill-php85": "^1.32"
             },
             "replace": {
                 "mongodb/builder": "*"
@@ -1095,9 +1093,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mongodb/mongo-php-library/issues",
-                "source": "https://github.com/mongodb/mongo-php-library/tree/1.21.1"
+                "source": "https://github.com/mongodb/mongo-php-library/tree/2.1.0"
             },
-            "time": "2025-02-28T17:24:20+00:00"
+            "time": "2025-05-23T10:48:05+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1985,74 +1983,6 @@
             "time": "2024-05-10T17:25:35+00:00"
         },
         {
-            "name": "psx/model",
-            "version": "v5.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/apioo/psx-model.git",
-                "reference": "b85972b665f79ba7b7a5c505fbae8f77715a6f7e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-model/zipball/b85972b665f79ba7b7a5c505fbae8f77715a6f7e",
-                "reference": "b85972b665f79ba7b7a5c505fbae8f77715a6f7e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "psx/record": "^3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0",
-                "psx/schema": "^6.0",
-                "symfony/yaml": "^5.0|^6.0|^7.0",
-                "vimeo/psalm": "^5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "PSX\\Model\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Christoph Kappestein",
-                    "email": "christoph.kappestein@gmail.com",
-                    "homepage": "https://chrisk.app"
-                }
-            ],
-            "description": "PSX model classes",
-            "homepage": "https://phpsx.org",
-            "keywords": [
-                "dto",
-                "model",
-                "popo"
-            ],
-            "support": {
-                "issues": "https://github.com/apioo/psx-model/issues",
-                "source": "https://github.com/apioo/psx-model/tree/v5.0.3"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.me/fusioapi",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/chriskapp",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/fusio",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2024-05-10T17:27:43+00:00"
-        },
-        {
             "name": "psx/oauth2",
             "version": "v4.0.2",
             "source": {
@@ -2184,16 +2114,16 @@
         },
         {
             "name": "psx/schema",
-            "version": "v6.4.2",
+            "version": "v7.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/psx-schema.git",
-                "reference": "f67824733d6754dd475c9de92046f37328caa26a"
+                "reference": "5d053e6546958e510a9ad0113dcf90dcaa277cda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-schema/zipball/f67824733d6754dd475c9de92046f37328caa26a",
-                "reference": "f67824733d6754dd475c9de92046f37328caa26a",
+                "url": "https://api.github.com/repos/apioo/psx-schema/zipball/5d053e6546958e510a9ad0113dcf90dcaa277cda",
+                "reference": "5d053e6546958e510a9ad0113dcf90dcaa277cda",
                 "shasum": ""
             },
             "require": {
@@ -2211,9 +2141,9 @@
                 "symfony/console": "^5.0|^6.0|^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^9.0",
+                "phpunit/phpunit": "^10.0",
                 "symfony/yaml": "^5.0|^6.0|^7.0",
-                "vimeo/psalm": "^5.0"
+                "vimeo/psalm": "^5.0|^6.0"
             },
             "type": "library",
             "autoload": {
@@ -2242,7 +2172,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/psx-schema/issues",
-                "source": "https://github.com/apioo/psx-schema/tree/v6.4.2"
+                "source": "https://github.com/apioo/psx-schema/tree/v7.4.3"
             },
             "funding": [
                 {
@@ -2258,7 +2188,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-09-23T18:38:43+00:00"
+            "time": "2025-07-16T20:26:53+00:00"
         },
         {
             "name": "psx/uri",
@@ -2509,20 +2439,20 @@
         },
         {
             "name": "sdkfabric/airtable",
-            "version": "v0.4.1",
+            "version": "v0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sdk-fabric/airtable-php.git",
-                "reference": "60bbc7a5c1cfa4ac92724af33562c7c544aba889"
+                "reference": "23d958784233e1be033fe846aca6e46fd561166f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sdk-fabric/airtable-php/zipball/60bbc7a5c1cfa4ac92724af33562c7c544aba889",
-                "reference": "60bbc7a5c1cfa4ac92724af33562c7c544aba889",
+                "url": "https://api.github.com/repos/sdk-fabric/airtable-php/zipball/23d958784233e1be033fe846aca6e46fd561166f",
+                "reference": "23d958784233e1be033fe846aca6e46fd561166f",
                 "shasum": ""
             },
             "require": {
-                "sdkgen/client": "^1.0"
+                "sdkgen/client": "^2.0"
             },
             "require-dev": {
                 "vimeo/psalm": "^5.0"
@@ -2541,7 +2471,7 @@
             "homepage": "https://sdk-fabric.org",
             "support": {
                 "issues": "https://github.com/sdk-fabric/airtable-php/issues",
-                "source": "https://github.com/sdk-fabric/airtable-php/tree/v0.4.1"
+                "source": "https://github.com/sdk-fabric/airtable-php/tree/v0.4.2"
             },
             "funding": [
                 {
@@ -2549,27 +2479,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-06T21:03:47+00:00"
+            "time": "2024-11-01T15:52:27+00:00"
         },
         {
             "name": "sdkfabric/discord",
-            "version": "v0.2.7",
+            "version": "v0.2.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sdk-fabric/discord-php.git",
-                "reference": "b7a82a5cfd600ccac96f0ab658a21f3ad7a84e96"
+                "reference": "7a7dca8a22667bcf0b5d79a8ce2ebcbb747b850c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sdk-fabric/discord-php/zipball/b7a82a5cfd600ccac96f0ab658a21f3ad7a84e96",
-                "reference": "b7a82a5cfd600ccac96f0ab658a21f3ad7a84e96",
+                "url": "https://api.github.com/repos/sdk-fabric/discord-php/zipball/7a7dca8a22667bcf0b5d79a8ce2ebcbb747b850c",
+                "reference": "7a7dca8a22667bcf0b5d79a8ce2ebcbb747b850c",
                 "shasum": ""
             },
             "require": {
-                "sdkgen/client": "^1.0"
-            },
-            "require-dev": {
-                "vimeo/psalm": "^5.0"
+                "sdkgen/client": "^2.0"
             },
             "type": "library",
             "autoload": {
@@ -2585,7 +2512,7 @@
             "homepage": "https://sdk-fabric.org",
             "support": {
                 "issues": "https://github.com/sdk-fabric/discord-php/issues",
-                "source": "https://github.com/sdk-fabric/discord-php/tree/v0.2.7"
+                "source": "https://github.com/sdk-fabric/discord-php/tree/v0.2.11"
             },
             "funding": [
                 {
@@ -2593,27 +2520,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-30T18:49:38+00:00"
+            "time": "2025-03-02T11:33:22+00:00"
         },
         {
             "name": "sdkfabric/notion",
-            "version": "v0.1.3",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sdk-fabric/notion-php.git",
-                "reference": "fe7ccf5e82a27f1aebb7502be57f1e3ce5813165"
+                "reference": "7a7817af46d26b36c46605c9ff9e88b3367ba8a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sdk-fabric/notion-php/zipball/fe7ccf5e82a27f1aebb7502be57f1e3ce5813165",
-                "reference": "fe7ccf5e82a27f1aebb7502be57f1e3ce5813165",
+                "url": "https://api.github.com/repos/sdk-fabric/notion-php/zipball/7a7817af46d26b36c46605c9ff9e88b3367ba8a6",
+                "reference": "7a7817af46d26b36c46605c9ff9e88b3367ba8a6",
                 "shasum": ""
             },
             "require": {
-                "sdkgen/client": "^1.0"
-            },
-            "require-dev": {
-                "vimeo/psalm": "^5.0"
+                "sdkgen/client": "^2.0"
             },
             "type": "library",
             "autoload": {
@@ -2629,7 +2553,7 @@
             "homepage": "https://sdk-fabric.org",
             "support": {
                 "issues": "https://github.com/sdk-fabric/notion-php/issues",
-                "source": "https://github.com/sdk-fabric/notion-php/tree/v0.1.3"
+                "source": "https://github.com/sdk-fabric/notion-php/tree/v0.2.0"
             },
             "funding": [
                 {
@@ -2637,27 +2561,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-23T21:01:22+00:00"
+            "time": "2025-03-02T20:28:41+00:00"
         },
         {
             "name": "sdkfabric/starwars",
-            "version": "v0.1.5",
+            "version": "v0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sdk-fabric/starwars-php.git",
-                "reference": "16ffa73d9460e08f466e05ddf6a0c6217cf806c2"
+                "reference": "0233833ca054c2e01c4a0d975af2394ade0d1dd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sdk-fabric/starwars-php/zipball/16ffa73d9460e08f466e05ddf6a0c6217cf806c2",
-                "reference": "16ffa73d9460e08f466e05ddf6a0c6217cf806c2",
+                "url": "https://api.github.com/repos/sdk-fabric/starwars-php/zipball/0233833ca054c2e01c4a0d975af2394ade0d1dd2",
+                "reference": "0233833ca054c2e01c4a0d975af2394ade0d1dd2",
                 "shasum": ""
             },
             "require": {
-                "sdkgen/client": "^1.0"
-            },
-            "require-dev": {
-                "vimeo/psalm": "^5.0"
+                "sdkgen/client": "^2.0"
             },
             "type": "library",
             "autoload": {
@@ -2673,7 +2594,7 @@
             "homepage": "https://sdk-fabric.org",
             "support": {
                 "issues": "https://github.com/sdk-fabric/starwars-php/issues",
-                "source": "https://github.com/sdk-fabric/starwars-php/tree/v0.1.5"
+                "source": "https://github.com/sdk-fabric/starwars-php/tree/v0.1.8"
             },
             "funding": [
                 {
@@ -2681,24 +2602,24 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-25T07:42:48+00:00"
+            "time": "2025-03-02T18:26:12+00:00"
         },
         {
             "name": "sdkfabric/twitter",
-            "version": "v3.0.8",
+            "version": "v3.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sdk-fabric/twitter-php.git",
-                "reference": "adc0fe0f1ba3ca59aed64c1d0da86a58e4297be3"
+                "reference": "3d669999b5d0d7809ced59ac319f751c74f66687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sdk-fabric/twitter-php/zipball/adc0fe0f1ba3ca59aed64c1d0da86a58e4297be3",
-                "reference": "adc0fe0f1ba3ca59aed64c1d0da86a58e4297be3",
+                "url": "https://api.github.com/repos/sdk-fabric/twitter-php/zipball/3d669999b5d0d7809ced59ac319f751c74f66687",
+                "reference": "3d669999b5d0d7809ced59ac319f751c74f66687",
                 "shasum": ""
             },
             "require": {
-                "sdkgen/client": "^1.0"
+                "sdkgen/client": "^2.0"
             },
             "require-dev": {
                 "vimeo/psalm": "^5.0"
@@ -2717,7 +2638,7 @@
             "homepage": "https://sdk-fabric.org",
             "support": {
                 "issues": "https://github.com/sdk-fabric/twitter-php/issues",
-                "source": "https://github.com/sdk-fabric/twitter-php/tree/v3.0.8"
+                "source": "https://github.com/sdk-fabric/twitter-php/tree/v3.0.9"
             },
             "funding": [
                 {
@@ -2725,20 +2646,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-23T20:45:27+00:00"
+            "time": "2024-11-01T16:45:32+00:00"
         },
         {
             "name": "sdkgen/client",
-            "version": "v1.1.0",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/sdkgen-php.git",
-                "reference": "3a3e8cb788972ea580eb9997bb4e468f1cf4e083"
+                "reference": "0bb52c07d0c9ce212ef117c0378c7b48517907cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/sdkgen-php/zipball/3a3e8cb788972ea580eb9997bb4e468f1cf4e083",
-                "reference": "3a3e8cb788972ea580eb9997bb4e468f1cf4e083",
+                "url": "https://api.github.com/repos/apioo/sdkgen-php/zipball/0bb52c07d0c9ce212ef117c0378c7b48517907cf",
+                "reference": "0bb52c07d0c9ce212ef117c0378c7b48517907cf",
                 "shasum": ""
             },
             "require": {
@@ -2746,8 +2667,8 @@
                 "php": ">=8.1",
                 "psr/simple-cache": "^3.0",
                 "psx/json": "^3.0",
-                "psx/model": "^5.0",
-                "psx/schema": "^5.0|^6.0"
+                "psx/record": "^3.0",
+                "psx/schema": "^7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.0",
@@ -2780,7 +2701,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/sdkgen-php/issues",
-                "source": "https://github.com/apioo/sdkgen-php/tree/v1.1.0"
+                "source": "https://github.com/apioo/sdkgen-php/tree/v2.0.3"
             },
             "funding": [
                 {
@@ -2796,7 +2717,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-03-24T18:16:15+00:00"
+            "time": "2025-02-23T07:42:02+00:00"
         },
         {
             "name": "symfony/cache",
@@ -3692,6 +3613,82 @@
                 }
             ],
             "time": "2024-12-23T08:48:59+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php85",
+            "version": "v1.32.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php85.git",
+                "reference": "6fedf31ce4e3648f4ff5ca58bfd53127d38f05fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php85/zipball/6fedf31ce4e3648f4ff5ca58bfd53127d38f05fd",
+                "reference": "6fedf31ce4e3648f4ff5ca58bfd53127d38f05fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php85\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.5+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php85/tree/v1.32.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-05-02T08:40:52+00:00"
         },
         {
             "name": "symfony/service-contracts",
