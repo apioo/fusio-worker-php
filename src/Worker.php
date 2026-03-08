@@ -3,6 +3,7 @@
 namespace Fusio\Worker;
 
 use Fusio\Worker\Runtime\Runtime;
+use RuntimeException;
 
 class Worker
 {
@@ -56,11 +57,45 @@ class Worker
 
     private function getActionFile(string $action): string
     {
-        if (!preg_match('/^[A-Za-z0-9_-]{3,255}$/', $action)) {
-            throw new \RuntimeException('Provided no valid action name');
+        $name = $action;
+        $hash = null;
+
+        $pos = strpos($action, '@');
+        if ($pos !== false) {
+            $name = substr($action, 0, $pos);
+            $hash = substr($action, $pos + 1);
         }
 
-        return self::ACTIONS_DIR . '/' . $action . '.php';
+        $this->assertAction($name);
+        if (!empty($hash)) {
+            $this->assertHash($hash);
+        }
+
+        $baseDir = self::ACTIONS_DIR . '/' . $name;
+        if (!is_dir($baseDir)) {
+            mkdir($baseDir, recursive: true);
+        }
+
+        $fileName = "main";
+        if (!empty($hash)) {
+            $fileName = $hash;
+        }
+
+        return $baseDir . '/' . $fileName . '.php';
+    }
+
+    private function assertAction(string $action): void
+    {
+        if (!preg_match('/^[A-Za-z0-9_-]{3,255}$/', $action)) {
+            throw new RuntimeException('Provided no valid action name');
+        }
+    }
+
+    private function assertHash(?string $hash): void
+    {
+        if ($hash === null || !preg_match('/^[A-Za-z0-9]{3,255}$/', $hash)) {
+            throw new RuntimeException('Provided no valid action hash');
+        }
     }
 
     private function newMessage(bool $success, string $message): Message
