@@ -10,14 +10,14 @@ RUN apt-get update && apt-get -y install \
     default-mysql-client \
     libpq-dev \
     libxml2-dev \
-    libcurl3-dev \
+    libcurl4-openssl-dev \
     libzip-dev \
     libonig-dev \
     libpng-dev \
     openssl \
     libssl-dev \
-    libcurl4-openssl-dev \
-    libaio1t64
+    libicu-dev \
+    libsqlite3-dev
 
 # install php extensions
 RUN docker-php-ext-install \
