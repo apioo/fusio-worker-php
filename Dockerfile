@@ -17,7 +17,7 @@ RUN apt-get update && apt-get -y install \
     openssl \
     libssl-dev \
     libcurl4-openssl-dev \
-    libaio1
+    libaio1t64
 
 # install php extensions
 RUN docker-php-ext-install \
