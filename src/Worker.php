@@ -4,6 +4,7 @@ namespace Fusio\Worker;
 
 use Fusio\Worker\Runtime\Runtime;
 use RuntimeException;
+use stdClass;
 
 class Worker
 {
@@ -21,12 +22,12 @@ class Worker
         return $this->runtime->get();
     }
 
-    public function execute(string $action, \stdClass $payload): Response
+    public function execute(string $action, stdClass $payload): Response
     {
         return $this->runtime->run($this->getActionFile($action), $payload);
     }
 
-    public function put(string $action, \stdClass $payload): Message
+    public function put(string $action, stdClass $payload): Message
     {
         if (!is_dir(self::ACTIONS_DIR)) {
             mkdir(self::ACTIONS_DIR);
