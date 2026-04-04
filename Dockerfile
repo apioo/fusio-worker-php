@@ -38,9 +38,11 @@ RUN docker-php-ext-install \
     soap
 
 # install pecl
-RUN pecl install mongodb-2.1.1
+RUN pecl install memcache-8.2 \
+    && pecl install mongodb-2.1.4
 
 RUN docker-php-ext-enable \
+    memcache \
     mongodb
 
 # install composer
@@ -50,7 +52,7 @@ RUN chmod +x /usr/bin/composer
 
 # install worker
 COPY . /var/www/html/worker
-RUN cd /var/www/html/worker && /usr/bin/composer install && mkdir /var/www/html/worker/actions
+RUN cd /var/www/html/worker && /usr/bin/composer install --no-dev && /usr/bin/composer dump-autoload --no-dev --classmap-authoritative && mkdir /var/www/html/worker/actions
 RUN chown -R www-data: /var/www/html/worker
 
 # apache config
