@@ -32,17 +32,17 @@ RUN docker-php-ext-install \
     curl \
     zip \
     mbstring \
+    opcache \
     intl \
     xml \
     gd \
-    soap
+    soap \
+    sockets
 
 # install pecl
-RUN pecl install memcache-8.2 \
-    && pecl install mongodb-2.1.4
+RUN pecl install mongodb-2.1.4
 
 RUN docker-php-ext-enable \
-    memcache \
     mongodb
 
 # install composer
